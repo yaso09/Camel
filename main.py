@@ -22,7 +22,8 @@ if param == "run" or param == "-r":
             nm = uuid.uuid4().hex
             f = open(f"script_{nm}.json", "w")
             f.write(res.text) and f.close()
-            script = json.load(f"script_{nm}.json")
+            a = open(f"script_{nm}.json", "r")
+            script = json.load(a)
             f = open(f"script_{nm}.{script['file_format']}", "w")
             f.writelines(script["codes"])
             commands = script["commands"]
@@ -79,11 +80,9 @@ elif param == "save" or param == "-s":
     except IndexError: print("Please enter script name")
 elif param == "test" or param == "-t":
     try:
-        print(sys.argv[2])
-        f = open(f"{sys.argv[2]}.cml")
-        print(f.read())
-        script = json.loads(f.read())
-        f.close()
+        nm = uuid.uuid4().hex
+        a = open(f"{sys.argv[2]}.cml", "r")
+        script = json.load(a)
         f = open(f"script_{nm}.{script['file_format']}", "w")
         f.writelines(script["codes"]) and f.close()
         commands = script["commands"]
